@@ -44,7 +44,13 @@ export default {
     components: {},
     methods: {
         updateCompleted() {
+            axios.patch('api/todos/' + this.item.id, {
+                completed : !this.item.completed
+            }).then(response => {
 
+            }).catch(error => {
+                console.error(error);
+            });
         },
         destroyItem() {
 

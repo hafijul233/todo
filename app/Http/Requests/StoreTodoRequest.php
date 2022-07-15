@@ -27,14 +27,14 @@ class StoreTodoRequest extends FormRequest
     {
         return [
             'task' => ['required', 'string'],
-            'completed' => ['required', Rule::in(['yes', 'no'])]
+            'completed' => ['required', 'boolean']
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            'completed_at' => ($this->completed == 'yes') ? Carbon::now() : null
+            'completed_at' => ($this->boolean('completed') == 'yes') ? Carbon::now() : null
         ]);
     }
 }

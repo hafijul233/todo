@@ -9,6 +9,7 @@ use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
 {
@@ -73,6 +74,7 @@ class TodoController extends Controller
     {
         try {
             $inputs = $request->only('task', 'completed_at');
+            Log::info($todo->id, [$inputs]);
             $item = $todo->fill($inputs);
             $item->save();
             return $this->index();
