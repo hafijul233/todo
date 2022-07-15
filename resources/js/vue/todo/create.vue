@@ -76,12 +76,12 @@ export default {
 
             axios.post('api/todos', {
                 'task': this.item.task,
-                "completed": "no"
+                "completed": false
             }).then(response => {
                 if (response.status === 201) {
                     this.item.task = "";
                 }
-                console.log(response);
+                this.$emit('reloadlist');
             }).catch(error => {
                 console.error(error);
             })

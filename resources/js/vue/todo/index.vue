@@ -3,6 +3,8 @@
         <div v-for="(item, index) in items" :key="index">
             <TodoListItem
                 :item="item"
+                class="item"
+                v-on:itemchanged="$emit('reloadlist')"
             />
         </div>
     </div>
