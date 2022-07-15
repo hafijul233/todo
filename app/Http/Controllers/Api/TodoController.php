@@ -73,7 +73,7 @@ class TodoController extends Controller
     public function update(UpdateTodoRequest $request, Todo $todo)
     {
         try {
-            $inputs = $request->only('task', 'completed_at');
+            $inputs = $request->all();
             Log::info($todo->id, [$inputs]);
             $item = $todo->fill($inputs);
             $item->save();

@@ -17,6 +17,7 @@
 
 .completed {
     text-decoration: line-through;
+    color: #6c757d;
 
 }
 
@@ -45,7 +46,7 @@ export default {
     methods: {
         updateCompleted() {
             axios.patch('api/todos/' + this.item.id, {
-                completed : !this.item.completed
+                completed : this.item.completed
             }).then(response => {
 
             }).catch(error => {

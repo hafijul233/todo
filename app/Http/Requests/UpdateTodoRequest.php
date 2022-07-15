@@ -34,7 +34,7 @@ class UpdateTodoRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'completed_at' => ($this->boolean('completed') == 'yes') ? Carbon::now() : null
+            'completed_at' => ($this->boolean('completed') == true) ? Carbon::now() : null
         ]);
     }
 }
