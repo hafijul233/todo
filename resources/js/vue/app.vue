@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         getTodoListItems() {
-            axios.get('/api/todos').then(response => {
+            axios.get('api/todos').then(response => {
                 this.items = response.data;
 
             }).catch(error => {
