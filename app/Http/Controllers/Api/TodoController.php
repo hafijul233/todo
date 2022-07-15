@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateTodoRequest;
 use App\Http\Resources\TodoCollection;
 use App\Http\Resources\TodoResource;
 use App\Models\Todo;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
@@ -30,16 +30,16 @@ class TodoController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreTodoRequest $request
-     * @return TodoCollection
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function store(StoreTodoRequest $request): TodoCollection
+    public function store(StoreTodoRequest $request): JsonResponse
     {
         try {
             $inputs = $request->only('task', 'completed_at');
             $item = new Todo($inputs);
             $item->save();
-            return $this->index();
+            return response()->json($this->index(), 201);
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
@@ -67,7 +67,7 @@ class TodoController extends Controller
      *
      * @param UpdateTodoRequest $request
      * @param Todo $todo
-     * @return Response
+     * @return JsonResponse
      * @throws \Exception
      */
     public function update(UpdateTodoRequest $request, Todo $todo)
@@ -77,7 +77,7 @@ class TodoController extends Controller
             Log::info($todo->id, [$inputs]);
             $item = $todo->fill($inputs);
             $item->save();
-            return $this->index();
+            return response()->json($this->index());
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }
@@ -87,14 +87,14 @@ class TodoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Todo $todo
-     * @return TodoCollection
+     * @return JsonResponse
      * @throws \Exception
      */
-    public function destroy(Todo $todo): TodoCollection
+    public function destroy(Todo $todo): JsonResponse
     {
         try {
             $todo->delete();
-            return $this->index();
+            return response()->json($this->index(), 204);
         } catch (\Exception $exception) {
             throw new \Exception($exception->getMessage());
         }

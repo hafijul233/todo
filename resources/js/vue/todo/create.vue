@@ -64,7 +64,7 @@ export default {
     data: function () {
         return {
             item: {
-                task: "Some Task"
+                task: ""
             }
         }
     },
@@ -78,7 +78,7 @@ export default {
                 'task': this.item.task,
                 "completed": "no"
             }).then(response => {
-                if (response.status === 200) {
+                if (response.status === 201) {
                     this.item.task = "";
                 }
                 console.log(response);
